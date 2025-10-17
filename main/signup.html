@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HiddenHop - Sign Up</title>
+  <link rel="stylesheet" href="/public/auth.css">
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="signup-container">
+        <div class="logo">
+            <h1>HiddenHop</h1>
+            <p>Create your account</p>
+        </div>
+
+        <form id="signupForm" novalidate>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                    <div class="error-message" id="firstNameError">First name is required</div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                    <div class="error-message" id="lastNameError">Last name is required</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+                <div class="error-message" id="emailError">Please enter a valid email address</div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-container">
+                    <input type="password" id="password" name="password" required>
+                    <button type="button" class="password-toggle" onclick="togglePassword('password')">👁️</button>
+                </div>
+                <div class="strength-meter">
+                    <div class="strength-fill" id="strengthBar"></div>
+                </div>
+                <div class="strength-text" id="strengthText">Enter a password</div>
+                <div class="error-message" id="passwordError">Password must be at least 6 characters</div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <div class="input-container">
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">👁️</button>
+                </div>
+                <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
+            </div>
+
+
+
+            <button type="submit" class="signup-btn" id="submitBtn">
+                Create Account
+            </button>
+        </form>
+
+
+
+        <div class="login-link">
+            Already have an account? <a href="login.html">Sign in</a>
+        </div>
+    </div>
+
+    <script>
+    
+
+        // Password visibility toggle
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            const button = field.nextElementSibling;
+            
+            if (field.type === 'password') {
+                field.type = 'text';
+                button.textContent = '🙈';
+            } else {
+                field.type = 'password';
+                button.textContent = '👁️';
+            }
+        }
+
+        // Password strength checker
+        function checkPasswordStrength(password) {
+            const strengthBar = document.getElementById('strengthBar');
+            const strengthText = document.getElementById('strengthText');
+            
+            let strength = 0;
+            const checks = {
+                length: password.length >= 6,
+                lowercase: /[a-z]/.test(password),
+                uppercase: /[A-Z]/.test(password),
+                numbers: /\d/.test(password),
+                symbols: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+            };
+            
+            strength = Object.values(checks).filter(Boolean).length;
+            
+            // Reset classes
+            strengthBar.className = 'strength-fill';
+            
+            if (strength === 0) {
+                strengthText.textContent = 'Enter a password';
+                strengthText.style.color = '#6b7280';
+            } else if (strength <= 2) {
+                strengthBar.classList.add('strength-1');
+                strengthText.textContent = 'Weak password';
+                strengthText.style.color = '#ef4444';
+            } else if (strength === 3) {
+                strengthBar.classList.add('strength-2');
+                strengthText.textContent = 'Fair password';
+                strengthText.style.color = '#f59e0b';
+            } else if (strength === 4) {
+                strengthBar.classList.add('strength-3');
+                strengthText.textContent = 'Good password';
+                strengthText.style.color = '#10b981';
+            } else {
+                strengthBar.classList.add('strength-4');
+                strengthText.textContent = 'Strong password';
+                strengthText.style.color = '#059669';
+            }
+            
+            return strength;
+        }
+    // Form validation state
+        const validation = {
+            firstName: false,
+            lastName: false,
+            email: false,
+            password: false,
+            confirmPassword: false
+        };
+        // Field validation
+        function validateField(fieldName, value) {
+            const errorElement = document.getElementById(fieldName + 'Error');
+            let isValid = false;
+            
+            switch (fieldName) {
+                case 'firstName':
+                case 'lastName':
+                    isValid = value.trim().length >= 2;
+                    console.log("FN and LN :"+isValid);
+                    break;
+                    
+                case 'email':
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    isValid = emailRegex.test(value.trim());
+                       console.log("email:"+isValid);
+                    break;
+                    
+                case 'password':
+                    const strength = checkPasswordStrength(value);
+                    isValid = value.length >= 5 && strength >= 2;
+                       console.log("Password :"+isValid);
+                    break;
+                    
+                case 'confirmPassword':
+                    const passwordValue = document.getElementById('password').value;
+                    isValid = value === passwordValue && value.length > 0;
+                       console.log("Con password:"+isValid);
+                    break;
+            
+            }
+            
+            if (isValid) {
+                errorElement.classList.remove('show');
+            } else {
+                errorElement.classList.add('show');
+            }
+            
+            validation[fieldName] = isValid;
+            updateSubmitButton();
+            
+            return isValid;
+        }
+
+        // Update submit button state
+        function updateSubmitButton() {
+            const submitBtn = document.getElementById('submitBtn');
+            const isFormValid = Object.values(validation).every(valid => valid);
+            submitBtn.disabled = !isFormValid;
+        }
+
+
+       
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add input event listeners
+            ['firstName', 'lastName', 'email', 'password', 'confirmPassword'].forEach(field => {
+                const element = document.getElementById(field);
+                element.addEventListener('input', (e) => {
+                    validateField(field, e.target.value);
+                });
+                element.addEventListener('blur', (e) => {
+                    validateField(field, e.target.value);
+                });
+            });
+
+          
+
+            // Form submission
+            document.getElementById('signupForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate all fields
+                const formData = new FormData(this);
+                let isValid = true;
+                ['firstName', 'lastName', 'email', 'password', 'confirmPassword'].forEach(field => {
+    const value = document.getElementById(field).value || '';
+    if (!validateField(field, value)) {
+        isValid = false;
+    }
+});
+
+                
+                // ['firstName', 'lastName', 'email', 'password', 'confirmPassword'].forEach(field => {
+                //     const value = field 
+                //         ? document.getElementById(field).checked
+                //         : formData.get(field) || '';
+                //     if (!validateField(field, value)) {
+                //         isValid = false;
+                //     }
+                // });
+                
+                if (isValid) {
+                    const submitBtn = document.getElementById('submitBtn');
+                    submitBtn.textContent = 'Creating Account...';
+                    submitBtn.disabled = true;
+                    
+                    // Simulate API call
+                    setTimeout(() => {
+                        alert('Account created successfully! ');
+                           window.location.href = "login.html";
+                        submitBtn.textContent = 'Create Account';
+                        
+        
+                        submitBtn.disabled = false;
+                        this.reset();
+                        
+                        // Reset validation state
+                        Object.keys(validation).forEach(key => validation[key] = false);
+                        updateSubmitButton();
+                        
+                        // Reset password strength
+                        document.getElementById('strengthBar').className = 'strength-fill';
+                        document.getElementById('strengthText').textContent = 'Enter a password';
+                        document.getElementById('strengthText').style.color = '#6b7280';
+                    }, 2000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+<!-- 9signup.html:154  Uncaught TypeError: value.trim is not a function
+    at validateField (signup.html:154:37)
+    at signup.html:226:26
+    at Array.forEach (<anonymous>) -->

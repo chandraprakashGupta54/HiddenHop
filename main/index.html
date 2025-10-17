@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HiddenHop</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">🚂 HiddenHop</a>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="favorites.html" class="nav-link">
+                    Favorites <span class="fav-count" id="favCount">0</span>
+                </a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-auth" id="navauth">
+                <a href="login.html" class="btn btn-primary">Login</a>
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Section -->
+    <section class="main">
+        <div class="main-content">
+            <h1 class="main-title">Discover Hidden Gems Near You</h1>
+            <p class="main-subtitle">Find essential services and exciting spots around Mumbai's Western Line railway stations</p>
+            <div class="main-stats">
+                <div class="stat">
+                    <span class="stat-number">10</span>
+                    <span class="stat-label">Railway Stations</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">Places Listed</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">7</span>
+                    <span class="stat-label">Categories</span>
+                </div>
+            </div>
+        </div>
+        <div class="main-visual">
+            <div class="floating-card">🗺️</div>
+            <div class="floating-card">🏥</div>
+            <div class="floating-card">🍽️</div>
+        </div>
+    </section>
+
+    <!-- Station Search -->
+     <section class="search-section">
+        <div class="container">
+            <h2 class="section-title">Select Your Railway Station</h2>
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" 
+                           class="search-input" 
+                           id="stationSearch" 
+                           placeholder="Search for a railway station (e.g., Andheri, Bandra, Borivali...)"
+                           autocomplete="off">
+                    <div class="search-icon">🔍</div>
+                    <div class="suggestions" id="suggestions"></div>
+                </div>
+                
+                <button class="search-btn" onclick="searchStation()">Explore Now</button>
+            </div>
+            <div class="popular-stations">
+                <span class="popular-label">Popular: </span>
+                <button class="station-chip" onclick="selectStation('Andheri')">Andheri</button>
+                <button class="station-chip" onclick="selectStation('Bandra')">Bandra</button>
+                <button class="station-chip" onclick="selectStation('Borivali')">Borivali</button>
+                <button class="station-chip" onclick="selectStation('Dadar')">Dadar</button>
+            </div>
+        </div>
+    </section>
+    <!-- Categories Preview  -->
+<section class="categories-preview">
+        <div class="container">
+            <h2 class="section-title">Explore Categories</h2>
+            <p class="section-subtitle">Discover what's around your station</p>
+            <div class="categories-grid">
+                <div class="category-card" data-category="hospitals">
+                    <div class="category-icon">🏥</div>
+                    <h3>Hospitals</h3>
+                    <p>Emergency care & medical facilities</p>
+                    <span class="category-count">15+ places</span>
+                </div>
+                <div class="category-card" data-category="colleges">
+                    <div class="category-icon">🎓</div>
+                    <h3>Colleges</h3>
+                    <p>Educational institutions & universities</p>
+                    <span class="category-count">20+ places</span>
+                </div>
+                <div class="category-card" data-category="restaurants">
+                    <div class="category-icon">🍽️</div>
+                    <h3>Restaurants</h3>
+                    <p>Local cuisine & dining spots</p>
+                    <span class="category-count">100+ places</span>
+                </div>
+                <div class="category-card" data-category="banks">
+                    <div class="category-icon">🏦</div>
+                    <h3>Banks</h3>
+                    <p>ATMs, branches & financial services</p>
+                    <span class="category-count">50+ places</span>
+                </div>
+                <div class="category-card" data-category="theatres">
+                    <div class="category-icon">🎭</div>
+                    <h3>Theatres</h3>
+                    <p>Movies, shows & entertainment</p>
+                    <span class="category-count">25+ places</span>
+                </div>
+                <div class="category-card" data-category="travel">
+                    <div class="category-icon">✈️</div>
+                    <h3>Travel Spots</h3>
+                    <p>Tourist attractions & landmarks</p>
+                    <span class="category-count">40+ places</span>
+                </div>
+                <div class="category-card" data-category="activities">
+                    <div class="category-icon">🎢</div>
+                    <h3>Fun Activities</h3>
+                    <p>Recreation & adventure spots</p>
+                    <span class="category-count">30+ places</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+       <!-- Feature Of HiddenHop -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose HiddenHop?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Precise Location</h3>
+                    <p>Get exact distances and directions from your railway station</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Real-time Info</h3>
+                    <p>Updated timings, prices, and availability information</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">❤️</div>
+                    <h3>Personal Favorites</h3>
+                    <p>Save and organize your preferred places for quick access</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Perfect experience on all devices, especially mobile</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Explore -->
+     <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Explore?</h2>
+                <p>Join thousands of users discovering amazing places around Mumbai</p>
+                <div class="cta-buttons">
+                    <a href="signup.html" class="btn btn-primary btn-large">Get Started Free</a>
+                    <a href="about.html" class="btn btn-primary btn-large">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ 
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>HiddenHop</h3>
+                    <p>Your ultimate guide to discovering places around Mumbai's railway stations.</p>
+                
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="favorites.html">Favorites</a>
+                    <a href="about.html">About</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <a href="places.html?category=hospitals">Hospitals</a>
+                    <a href="places.html?category=restaurants">Restaurants</a>
+                    <a href="places.html?category=theatres">Theatres</a>
+                    <a href="places.html?category=travel">Travel Spots</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                    <a href="#" class="footer-link">Help Center</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 HiddenHop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+        <script src="/script.js"></script>
+</body>
+
+</html>
