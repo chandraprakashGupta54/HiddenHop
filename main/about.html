@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About HiddenHop - Discover Hidden Gems</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/public/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #007bff 0%, #00c49a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            opacity: 0.9;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #007bff;
+            position: relative;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Mission Section */
+        .mission {
+            background: #f7f7f7;
+        }
+
+        .mission-content {
+            text-align: center;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #555;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            background: white;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+            background: #f7f7f7;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .step:nth-child(1) { animation-delay: 0.1s; }
+        .step:nth-child(2) { animation-delay: 0.2s; }
+        .step:nth-child(3) { animation-delay: 0.3s; }
+        .step:nth-child(4) { animation-delay: 0.4s; }
+
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 123, 255, 0.2);
+        }
+
+        .step-icon {
+            font-size: 3rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #00c49a;
+            color: white;
+            border-radius: 50%;
+            line-height: 40px;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .step h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        /* Features Section */
+        .features {
+            background: #f7f7f7;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-card:nth-child(5) { animation-delay: 0.5s; }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #00c49a;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: #007bff;
+        }
+
+        /* Story Section */
+        .story {
+            background: white;
+        }
+
+        .story-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Team Section */
+        .team {
+            background: #f7f7f7;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .team-member:nth-child(1) { animation-delay: 0.1s; }
+        .team-member:nth-child(2) { animation-delay: 0.2s; }
+        .team-member:nth-child(3) { animation-delay: 0.3s; }
+        .team-member:nth-child(4) { animation-delay: 0.4s; }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .team-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, #007bff, #00c49a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .team-member h3 {
+            color: #007bff;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            color: #00c49a;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Why Choose Section */
+        .why-choose {
+            background: white;
+        }
+
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .reason {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: #f7f7f7;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .reason:nth-child(1) { animation-delay: 0.1s; }
+        .reason:nth-child(2) { animation-delay: 0.2s; }
+        .reason:nth-child(3) { animation-delay: 0.3s; }
+        .reason:nth-child(4) { animation-delay: 0.4s; }
+        .reason:nth-child(5) { animation-delay: 0.5s; }
+        .reason:nth-child(6) { animation-delay: 0.6s; }
+
+        .reason:hover {
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .reason-icon {
+            font-size: 2rem;
+            color: #007bff;
+            flex-shrink: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #007bff, #00c49a);
+            color: white;
+            padding: 3rem 20px;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px) scale(1.2);
+        }
+
+        .contact-link {
+            display: inline-block;
+            background: white;
+            color: #007bff;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .contact-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255,255,255,0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 60px 20px;
+            }
+        }
+
+        /* Scroll Animation */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">🚂 HiddenHop</a>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="favorites.html" class="nav-link">
+                    Favorites <span class="fav-count" id="favCount">0</span>
+                </a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-auth" id="navauth">
+                <a href="login.html" class="btn btn-primary">Login</a>
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>About HiddenHop</h1>
+            <p>Discover hidden gems around every station</p>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="section mission scroll-reveal">
+        <h2 class="section-title">Our Mission</h2>
+        <div class="mission-content">
+            <p>Our mission is to make exploration easier by helping people discover the best nearby places around railway stations—faster, smarter, and more locally. We believe every station has hidden treasures waiting to be discovered, and we're here to guide you to them.</p>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section how-it-works scroll-reveal">
+        <h2 class="section-title">How HiddenHop Works</h2>
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-icon"><i class="fas fa-train"></i></div>
+                <h3>Select a Station</h3>
+                <p>Choose your railway station from our comprehensive list</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-icon"><i class="fas fa-th-large"></i></div>
+                <h3>Choose a Category</h3>
+                <p>Pick from travel spots, restaurants, colleges, hospitals, and more</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-icon"><i class="fas fa-wallet"></i></div>
+                <h3>Set Your Budget</h3>
+                <p>Filter results based on your budget preferences (optional)</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-icon"><i class="fas fa-map-marked-alt"></i></div>
+                <h3>Discover Instantly</h3>
+                <p>Get instant results with detailed information and directions</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features scroll-reveal">
+        <h2 class="section-title">Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                <h3>Real-time Discovery</h3>
+                <p>Get instant, up-to-date information about places near your selected station</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-list"></i></div>
+                <h3>Category-wise Listing</h3>
+                <p>Browse through organized categories for easy navigation and selection</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-filter"></i></div>
+                <h3>Budget Filtering</h3>
+                <p>Find places that match your budget with our smart filtering system</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-gem"></i></div>
+                <h3>Hidden Spots</h3>
+                <p>Discover local gems that aren't on typical tourist maps</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-search"></i></div>
+                <h3>Fast Search</h3>
+                <p>Clean UI with lightning-fast search capabilities for quick results</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="section story scroll-reveal">
+        <h2 class="section-title">Our Story</h2>
+        <div class="story-content">
+            <p>HiddenHop was created by students who travel daily and wanted a simple way to discover new places around stations. We realized that railway stations are more than just transit points—they're gateways to unique local experiences. Every day, thousands of travelers pass through stations without knowing about the amazing restaurants, shops, and hidden spots just minutes away.</p>
+            <br>
+            <p>We built HiddenHop to change that. Our platform combines local knowledge with smart technology to help you make the most of every stop on your journey. Whether you're a daily commuter, a student, or a traveler exploring new cities, HiddenHop is your companion for discovering the extraordinary in the ordinary.</p>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section team scroll-reveal">
+        <h2 class="section-title">Meet the Team</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="team-photo"><i class="fas fa-user"></i></div>
+                <h3>Aarav Sharma</h3>
+                <p class="team-role">Founder & Lead Developer</p>
+                <p>Passionate about creating solutions that make travel easier and more enjoyable for everyone.</p>
+            </div>
+            <div class="team-member">
+                <div class="team-photo"><i class="fas fa-user"></i></div>
+                <h3>Priya Patel</h3>
+                <p class="team-role">Co-Founder & Designer</p>
+                <p>Dedicated to crafting intuitive user experiences that bring local discoveries to life.</p>
+            </div>
+            <div class="team-member">
+                <div class="team-photo"><i class="fas fa-user"></i></div>
+                <h3>Rohan Kumar</h3>
+                <p class="team-role">Backend Engineer</p>
+                <p>Building robust systems that power seamless exploration for thousands of users.</p>
+            </div>
+            <div class="team-member">
+                <div class="team-photo"><i class="fas fa-user"></i></div>
+                <h3>Ananya Singh</h3>
+                <p class="team-role">Content & Community Manager</p>
+                <p>Connecting with users and curating the best local recommendations across India.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Section -->
+    <section class="section why-choose scroll-reveal">
+        <h2 class="section-title">Why Choose HiddenHop?</h2>
+        <div class="reasons-grid">
+            <div class="reason">
+                <div class="reason-icon"><i class="fas fa-rocket"></i></div>
+                <div>
+                    <h3>Simple & Fast</h3>
+                    <p>No complicated menus—just quick, easy discovery</p>
+                </div>
+            </div>
+            <div class="reason">
+                <div class="reason-icon"><i class="fas fa-check-circle"></i></div>
+                <div>
+                    <h3>Verified Places</h3>
+                    <p>All locations are verified and reviewed by our community</p>
+                </div>
+            </div>
+            <div class="reason">
+                <div class="reason-icon"><i class="fas fa-users"></i></div>
+                <div>
+                    <h3>Made for Travelers</h3>
+                    <p>Perfect for students, daily commuters, and explorers</p>
+                </div>
+            </div>
+            <div class="reason">
+                <div class="reason-icon"><i class="fas fa-map-pin"></i></div>
+                <div>
+                    <h3>Local Focus</h3>
+                    <p>Highlighting hidden gems that locals love</p>
+                </div>
+            </div>
+            <div class="reason">
+                <div class="reason-icon"><i class="fas fa-mobile-alt"></i></div>
+                <div>
+                    <h3>Always Accessible</h3>
+                    <p>Use anywhere, anytime on any device</p>
+                </div>
+            </div>
+            <div class="reason">
+                <div class="reason-icon"><i class="fas fa-heart"></i></div>
+                <div>
+                    <h3>Built with Passion</h3>
+                    <p>Created by travelers, for travelers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer
+    <footer>
+        <div class="social-links">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <a href="mailto:contact@hiddenhop.com" class="contact-link">Contact Us</a>
+        <p>&copy; 2024 HiddenHop. All rights reserved.</p>
+    </footer> -->
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>HiddenHop</h3>
+                    <p>Your ultimate guide to discovering places around Mumbai's railway stations.</p>
+                
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="favorites.html">Favorites</a>
+                    <a href="about.html">About</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <a href="places.html?category=hospitals">Hospitals</a>
+                    <a href="places.html?category=restaurants">Restaurants</a>
+                    <a href="places.html?category=theatres">Theatres</a>
+                    <a href="places.html?category=travel">Travel Spots</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                    <a href="#" class="footer-link">Help Center</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 HiddenHop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // Scroll reveal animation
+        const scrollReveal = () => {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', scrollReveal);
+        scrollReveal(); // Initial check
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
